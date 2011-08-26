@@ -54,8 +54,8 @@ public class PlanConfig {
 					Integer valor = Integer.valueOf(sValue);
 					pce.setValue(valor);
 				} catch (NumberFormatException e) {
-					pce.setValue(sValue);//OJO:Si no es numérico es cadena
-				} // TODO no tiene por quÃ© ser Integer				
+					pce.setValue(sValue);
+				} // TODO It could be not an integer				
 			}
 		}
     }

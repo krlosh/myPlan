@@ -23,7 +23,7 @@ public class ContactStore {
 	}
 	
 	public ArrayList<Contact> getContacts(Context context){
-		ArrayList<Contact> todosContactos= new ArrayList<Contact>();
+		ArrayList<Contact> allContacts= new ArrayList<Contact>();
 		if(Settings.isTestMode(context)){
 			MsisdnTypeService msisdnTypeService = MsisdnTypeService.getInstance();
 			Contact alice = new Contact("601000000", "Alicia", msisdnTypeService.getMsisdnType("601000000", "ES"));
@@ -34,14 +34,14 @@ public class ContactStore {
 			Contact ana = new Contact("605000004", "Ana", msisdnTypeService.getMsisdnType("605000004", "ES"));
 			Contact free = new Contact("123", null, msisdnTypeService.getMsisdnType("123", "ES"));
 			Contact land = new Contact("910000000", null, msisdnTypeService.getMsisdnType("910000000", "ES"));
-			todosContactos.add(alice);
-			todosContactos.add(bob);
-			todosContactos.add(charly);
-			todosContactos.add(daniel);
-			todosContactos.add(ebano);
-			todosContactos.add(free);
-			todosContactos.add(ana);
-			todosContactos.add(land);
+			allContacts.add(alice);
+			allContacts.add(bob);
+			allContacts.add(charly);
+			allContacts.add(daniel);
+			allContacts.add(ebano);
+			allContacts.add(free);
+			allContacts.add(ana);
+			allContacts.add(land);
 		}else{
 			final String[] PHONE_PROJECTION = new String[] {Phones.PERSON_ID, People.NAME, Phones.NUMBER};
 			Cursor phoneCursor = context.getContentResolver().query(Phones.CONTENT_URI, PHONE_PROJECTION, null, null, People.NAME);
@@ -53,13 +53,13 @@ public class ContactStore {
 			        	int indexName = phoneCursor.getColumnIndex(People.NAME);
 			            String name = phoneCursor.getString(indexName);
 						Contact contact = new Contact(number, name, MsisdnTypeService.getInstance().getMsisdnType(number, "ES"));
-						todosContactos.add(contact);
+						allContacts.add(contact);
 					} while (phoneCursor.moveToNext());
 				}
 			} finally {
 				phoneCursor.close();
 			}
 		}
-		return todosContactos;
+		return allContacts;
 		}
 }

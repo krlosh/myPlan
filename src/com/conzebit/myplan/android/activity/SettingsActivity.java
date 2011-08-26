@@ -18,7 +18,6 @@ package com.conzebit.myplan.android.activity;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Iterator;
 
 import android.app.Activity;
 import android.content.Context;
@@ -234,7 +233,6 @@ public class SettingsActivity extends PreferenceActivity {
     
     @SuppressWarnings("unchecked")
     private void populatePlanPreferences(final PlanService planService, PreferenceScreen myPlanRoot, final String operator, final String planName,Context context) {
-    	//TODO Como cargar todos los contactos?????
     	myPlanRoot.removeAll();
     	final PlanConfig planConfig = planService.getPlanConfig(operator, planName);
     	myPlanRoot.setEnabled(planConfig != null);
@@ -266,19 +264,17 @@ public class SettingsActivity extends PreferenceActivity {
     		        });
     		        myPlanRoot.addPreference(listPreference);
     			} else if (valueObject instanceof String) {
-    				String value="";//recoger el valor
-    				// TODO ver cuando es String
-    				ArrayList<Contact> todosContactos =ContactStore.getInstance().getContacts(context);
-    				String[]elementValueList=new String[todosContactos.size()];
-    				String[]elementList=new String[todosContactos.size()];
+    				String value="";
+    				ArrayList<Contact> allContacts =ContactStore.getInstance().getContacts(context);
+    				String[]elementValueList=new String[allContacts.size()];
+    				String[]elementList=new String[allContacts.size()];
     				int i=0;
-    				for (Contact contact : todosContactos) {
+    				for (Contact contact : allContacts) {
     					elementValueList[i]=contact.getMsisdn();
     					elementList[i]=contact.getContactName();
 						i++;
 					}
     				ListPreferenceMultiSelect listPreference = new ListPreferenceMultiSelect(this);
-    				//ListPreference listPreference = new ListPreference(this); 
     				int resourceID = getResources().getIdentifier(pce.getId(), "string", getPackageName());
     		        listPreference.setDialogTitle(resourceID);
     		        listPreference.setKey(pce.getId());

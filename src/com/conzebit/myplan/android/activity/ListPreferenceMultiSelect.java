@@ -4,7 +4,6 @@ package com.conzebit.myplan.android.activity;
 import android.app.AlertDialog.Builder;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.DialogInterface.OnClickListener;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.util.AttributeSet;
@@ -86,8 +85,6 @@ public class ListPreferenceMultiSelect extends ListPreference {
 
 	@Override
     protected void onDialogClosed(boolean positiveResult) {
-//        super.onDialogClosed(positiveResult);
-        
     	CharSequence[] entryValues = getEntryValues();
         if (positiveResult && entryValues != null) {
         	StringBuffer value = new StringBuffer();
@@ -103,8 +100,6 @@ public class ListPreferenceMultiSelect extends ListPreference {
         	
             if (callChangeListener(value)) {
             	String val = value.toString();
-//            	if ( val.length() > 0 )
-//            		val = val.substring(0, val.length()-SEPARATOR.length());
             	setValue(val);
             }
         }
